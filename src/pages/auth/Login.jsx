@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom'
-import validateInputs from "../functions/validateInputs";
+import { useHistory } from "react-router-dom";
+import validateInputs from "../../functions/validateInputs";
 import { useDispatch, useSelector } from "react-redux";
-import { decrypt } from "../functions/encrypt";
-import { getUser } from "../redux/actions";
+import { decrypt } from "../../functions/encrypt";
+import { getUser } from "../../redux/actions";
+import styles from "./auth.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const passwordRedux = useSelector(state => state.user.password);
+  const passwordRedux = useSelector((state) => state.user.password);
 
   const [user, setUser] = useState({
     email: {
@@ -24,9 +25,7 @@ const Login = () => {
 
   let history = useHistory();
 
-
   const setUserPetitions = async () => {
-
     const validate = validateInputs([
       {
         value: user["email"].value,
@@ -37,46 +36,47 @@ const Login = () => {
         value: user["password"].value,
         type: "password",
         nameInputInObject: "password",
-      }
+      },
     ]).filter((item) => item.validation === false);
 
-    if(validate.length > 0){
+    if (validate.length > 0) {
       let newDataLogin = user;
-      validate.forEach(element => {
+      validate.forEach((element) => {
         newDataLogin = {
           ...newDataLogin,
           [element.nameInputInObject]: {
             ...newDataLogin[element.nameInputInObject],
             error: true,
-            message: element.textSuggestion
-          }
+            message: element.textSuggestion,
+          },
         };
       });
       setUser(newDataLogin);
-      return
+      return;
     }
 
     dispatch(
-        getUser({
-            email: `${user["email"].value}`,
-          })
-        );
+      getUser({
+        email: `${user["email"].value}`,
+      })
+    );
 
-        let passwordDecrypt = await decrypt(user["password"].value, passwordRedux);
+    let passwordDecrypt = await decrypt(user["password"].value, passwordRedux);
 
-        if(passwordDecrypt){
-
-          history.push("/home");
-        }else{
-          alert('Usuario o contraseña incorrectos');
-        }
-
+    if (passwordDecrypt) {
+      history.push("/home");
+    } else {
+      alert("Usuario o contraseña incorrectos");
+    }
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <p>
+    <div className={styles.container}>
+      <div className={styles.top}></div>
+      <div className={styles.bottom}></div>
+      <div className={styles.center}>
+        <h2>Please Sign In</h2>
+
         <input
           className="Login__input"
           placeholder="Email"
@@ -93,6 +93,10 @@ const Login = () => {
             });
           }}
         />
+        <div className={styles.error}>
+          {user["email"].error && user["email"].message}
+        </div>
+
         <input
           className="Login__input"
           placeholder="Password"
@@ -109,14 +113,25 @@ const Login = () => {
             });
           }}
         />
-        {user["email"].error && user["email"].message}
-        {user["password"].error && user["password"].message}
-        <button onClick={() => setUserPetitions()}>click</button>
-      </p>
-      <button 
-        onClick= {() => history.push('singup')}>
-        Sing Up
-      </button>
+        <div className={styles.error}>
+          {user["password"].error && user["password"].message}
+        </div>
+
+        <button
+          className={styles.boton__auth}
+          onClick={() => setUserPetitions()}
+        >
+          <p className={styles.text__buton_auth}>Sing In</p>
+        </button>
+        <button
+          className={styles.boton__auth}
+          onClick={() => history.push("singup")}
+        >
+          <p className={styles.text__buton_auth}>Sing Up</p>
+        </button>
+
+        <h2>&nbsp;</h2>
+      </div>
     </div>
   );
 };

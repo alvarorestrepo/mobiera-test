@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'Open Sans', sans-serif;
+  src: url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;1,300&display=swap');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+}
+html {
+  font-size: 62.5%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #464646;
+}
+
+p, h1, h2, h3, h4 , h5, h6, li, a{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+code {
+  font-family: 'Open Sans', sans-serif;
+
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: hsla(0, 0%, 76.9%, 0.7);
+  border-radius: 12px;
+}
+
+b,
+strong {
+  font-weight: bolder;
+  font-weight: normal;
+}
+
+.header {
+  margin: 2em 0 2em 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid;
+}
+
+.header a {
+  margin: 0 1em 0 1em;
+  font-size: 16rem;
+  text-decoration: none;
+}
+
+.content {
+  margin-left: 2em;
+  font-size: 15rem;
+}
+
+.msg_error {
+  width: 90%;
+  height: 30px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 22px;
+  text-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  color: #FF4848;
+  margin-bottom: 10px;
+}

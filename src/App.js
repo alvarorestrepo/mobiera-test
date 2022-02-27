@@ -1,7 +1,7 @@
 import { Switch, Route } from "react-router-dom";
-import Login from "./pages/Login";
+import Login from "./pages/auth/Login";
 import Home from "./pages/Home";
-import SingUp from "./pages/SingUp";
+import SingUp from "./pages/auth/SingUp";
 import Layout from "./layout/Layout";
 import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
