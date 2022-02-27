@@ -43,20 +43,20 @@
 
 .top:before {
   transform: rotate(45deg);
-  background: #0e0916;
+  background: #23515c;
 }
 .top:after {
   transform: rotate(135deg);
-  background: #4b3c50;
+  background: #1c1911;
 }
 
 .bottom:before {
   transform: rotate(-45deg);
-  background: #8ea1bc;
+  background: #ff9419;
 }
 .bottom:after {
   transform: rotate(-135deg);
-  background: #e7eff6;
+  background: #ffed51;
 }
 
 .center {
@@ -84,6 +84,7 @@
   border-radius: 15px;
   border: 1px solid #ccc;
   font-family: inherit;
+  outline: none;
 }
 .error {
   width: 100%;

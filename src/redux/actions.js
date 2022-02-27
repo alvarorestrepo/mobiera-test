@@ -6,6 +6,7 @@ export const SET_LOOGED = 'SET_LOOGED';
 export const VALIDATE_EMAIL = 'VALIDATE_EMAIL';
 export const UPDATE_USER = 'UPDATE_USER';
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const FEEDBACK = 'FEEDBACK';
 
 //Endpoints
 
@@ -29,12 +30,24 @@ export const getUser = ({email}) => {
                         payload: {logged: true}
                     })
                 }else{
-                    alert("No existe el usuario");
+                    dispatch(getFeedback({ textFeedback: "User or password incorrect", openFeedback: true }));
                 }
             })
             .catch(err => {
                 console.log(err)
             })
+    }
+}
+
+export const getFeedback = ({textFeedback, openFeedback}) => {
+    return (dispatch) => {
+        dispatch({
+            type: FEEDBACK,
+            payload: {
+                textFeedback,
+                openFeedback
+            }
+        })
     }
 }
 
@@ -48,12 +61,22 @@ export const getChangePassword = ({email}) => {
                         payload: {changePassword: true}
                     })
                 }else{
-                    alert("No existe el usuario");
+                    dispatch(getFeedback({ textFeedback: "El usuario no existe", openFeedback: true }));
+
                 }
             })
             .catch(err => {
                 console.log(err)
             })
+    }
+}
+
+export const changePasswordFalse = () => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_PASSWORD,
+            payload: {changePassword: false}
+        })
     }
 }
 
@@ -70,6 +93,23 @@ export const updateUser = ({type,contend, id}) => {
             .catch(err => {
                 console.log(err)
             })
+    }
+}
+
+export const logOut = () => {
+    return (dispatch) => {
+        dispatch({
+            type: CHANGE_PASSWORD,
+            payload: {changePassword: false}
+        })
+        dispatch({
+            type: GET_USER,
+            payload: []
+        })
+        dispatch({
+            type: SET_LOOGED,
+            payload: {logged: false}
+        })
     }
 }
 

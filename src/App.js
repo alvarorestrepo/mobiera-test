@@ -1,33 +1,28 @@
 import { Switch, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import SingUp from "./pages/auth/SingUp";
 import Layout from "./layout/Layout";
-import Profile from "./pages/Profile";
-import ChangePassword from "./pages/ChangePassword";
-
+import Profile from "./pages/Profile/Profile";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import Feedback from "./components/Feedback/Feedback";
+import PrivateRoute from "./components/Routes/PrivateRoute";
+import PublicRoute from "./components/Routes/PublicRoute";
 
 function App() {
   return (
-    <Switch>
-      <Route path="/" exact>
-        <Login />
-      </Route>
-      <Route path="/singup" exact >
-        <SingUp/>
-      </Route>
-      <Layout>
-        <Route path="/home" exact >
-          <Home />
-        </Route>
-        <Route path="/profile" exact >
-          <Profile />
-        </Route>
-        <Route path="/change-password" exact >
-          <ChangePassword />
-        </Route>
-      </Layout>
-    </Switch>
+    <>
+      <Switch>
+          <PublicRoute exact path="/" component={Login} />
+          <PublicRoute exact path="/singup" component={SingUp} />
+        <Layout>
+          <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/change-password" component={ChangePassword} />
+          <PrivateRoute exact path="/home" component={Home} />
+        </Layout>
+      </Switch>
+      <Feedback/>
+    </>
   );
 }
 

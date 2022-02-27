@@ -7,6 +7,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 0px 0px 16px 16px;
   z-index: 5;
+  background-color: #fff;
 }
 .Menu__page {
   width: 100%;
@@ -72,7 +73,7 @@
   width:20px;
 }
 .btn_up {
-  background: #7263A0;
+  background: #FE7138;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   font-size: 0.9rem;

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import validateInputs from "../../functions/validateInputs";
+import Feedback from "../../components/Feedback/Feedback";
 import { useDispatch, useSelector } from "react-redux";
 import { decrypt } from "../../functions/encrypt";
-import { getUser } from "../../redux/actions";
+import { getUser, getFeedback } from "../../redux/actions";
 import styles from "./auth.module.css";
 
 const Login = () => {
@@ -63,10 +64,11 @@ const Login = () => {
 
     let passwordDecrypt = await decrypt(user["password"].value, passwordRedux);
 
-    if (passwordDecrypt) {
+    if (passwordDecrypt === true) {
       history.push("/home");
+      dispatch(getFeedback({ textFeedback: "bienvenido", openFeedback: true }));
     } else {
-      alert("Usuario o contraseña incorrectos");
+      dispatch(getFeedback({ textFeedback: "User or password incorrect", openFeedback: true }));
     }
   };
 
@@ -129,6 +131,7 @@ const Login = () => {
         >
           <p className={styles.text__buton_auth}>Sing Up</p>
         </button>
+        <Feedback />
 
         <h2>&nbsp;</h2>
       </div>
