@@ -1,9 +1,36 @@
+import { Switch, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import SingUp from "./pages/SingUp";
+import { useSelector } from "react-redux";
+import Layout from "./layout/Layout";
+import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
+
 
 function App() {
+  const logged = useSelector(state => state.logged.logged);
+  console.log("logged",logged);
   return (
-    <div className="App">
-      hola
-    </div>
+    <Switch>
+      <Route path="/" exact>
+        <Login />
+      </Route>
+      <Route path="/singup" exact >
+        <SingUp/>
+      </Route>
+      <Layout>
+        <Route path="/home" exact >
+          <Home />
+        </Route>
+        <Route path="/profile" exact >
+          <Profile />
+        </Route>
+        <Route path="/change-password" exact >
+          <ChangePassword />
+        </Route>
+      </Layout>
+    </Switch>
   );
 }
 
