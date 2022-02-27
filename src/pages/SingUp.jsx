@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import validateInputs from "../functions/validateInputs";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../redux/actions";
-
-
+import {encrypt} from '../functions/encrypt';
 
 const SingUp = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const apiSetUser = "http://localhost:8080/users";
 
@@ -75,9 +71,11 @@ const SingUp = () => {
       setUser(newDataLogin);
       return
     }
+
+    let passwordEncrypt = await encrypt(user["password"].value);
+
       let validateEmail = await axios.get(`http://localhost:8080/users?email=${user["email"].value}`)
         .then(res => {
-            console.log("res",res);
             if(res.data.length > 0){
                 return false;
             }else{
@@ -92,12 +90,11 @@ const SingUp = () => {
             name: `${user["name"].value}`,
             username: `${user["username"].value}`,
             email: `${user["email"].value}`,
-            password: `${user["password"].value}`,
+            password: passwordEncrypt,
         }
         if(validateEmail){
           await axios.post(apiSetUser, requestBody)
               .then(res => {
-                  console.log("res",res);
                   history.push("/")
               })
               .catch(err => {
@@ -107,10 +104,7 @@ const SingUp = () => {
         alert("Error al registrar")
       }
 
-
-
       if( validateEmail){
-        console.log("validateemailen el if",validateEmail);
         history.push("/")
       }
   }

@@ -2,15 +2,12 @@ import { Switch, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SingUp from "./pages/SingUp";
-import { useSelector } from "react-redux";
 import Layout from "./layout/Layout";
 import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
 
 
 function App() {
-  const logged = useSelector(state => state.logged.logged);
-  console.log("logged",logged);
   return (
     <Switch>
       <Route path="/" exact>

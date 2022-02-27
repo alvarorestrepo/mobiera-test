@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useHistory } from 'react-router-dom'
 import validateInputs from "../functions/validateInputs";
 import { useDispatch, useSelector } from "react-redux";
+import { decrypt } from "../functions/encrypt";
 import { getUser } from "../redux/actions";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const logged = useSelector(state => state.logged);
+  const passwordRedux = useSelector(state => state.user.password);
 
   const [user, setUser] = useState({
     email: {
@@ -24,7 +25,7 @@ const Login = () => {
   let history = useHistory();
 
 
-  const setUserPetitions = () => {
+  const setUserPetitions = async () => {
 
     const validate = validateInputs([
       {
@@ -38,8 +39,6 @@ const Login = () => {
         nameInputInObject: "password",
       }
     ]).filter((item) => item.validation === false);
-
-    console.log("validate",validate);
 
     if(validate.length > 0){
       let newDataLogin = user;
@@ -58,12 +57,20 @@ const Login = () => {
     }
 
     dispatch(
-      getUser({
-        email: `${user["email"].value}`,
-        password: `${user["password"].value}`,
-      })
-    );
-    history.push("/home")
+        getUser({
+            email: `${user["email"].value}`,
+          })
+        );
+
+        let passwordDecrypt = await decrypt(user["password"].value, passwordRedux);
+
+        if(passwordDecrypt){
+
+          history.push("/home");
+        }else{
+          alert('Usuario o contraseña incorrectos');
+        }
+
   };
 
   return (

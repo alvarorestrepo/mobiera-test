@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getChangePassword } from "../redux/actions";
-import { useHistory } from "react-router-dom";
+import { getChangePassword, updateUser } from "../redux/actions";
 import validateInputs from "../functions/validateInputs";
+import { decrypt, encrypt } from "../functions/encrypt";
 
 const ChangePassword = () => {
   const dispatch = useDispatch();
   const ChangePasswordRedux = useSelector(
     (state) => state.logged.changePassword
   );
-  console.log("ChangePasswordRedux", ChangePasswordRedux);
+  const passwordRedux = useSelector((state) => state.user.password);
+  const userId = useSelector((state) => state.user.id);
   const [user, setUser] = useState({
     email: {
       value: "",
@@ -36,15 +37,100 @@ const ChangePassword = () => {
     },
   });
 
-  const ChangePasswordfunction = (parametro) => {
-    dispatch(
-      getChangePassword({
-        email: `${user["email"].value}`,
-        password: `${user["password"].value}`,
-      })
-    );
-  };
+  const ChangePasswordfunction = () => {
+    const validate = validateInputs([
+      {
+        value: user["email"].value,
+        type: "email",
+        nameInputInObject: "email",
+      },
+      {
+        value: user["password"].value,
+        type: "password",
+        nameInputInObject: "password",
+      },
+    ]).filter((item) => item.validation === false);
 
+    if (validate.length > 0) {
+      let dataChangePassword = user;
+      validate.forEach((element) => {
+        dataChangePassword = {
+          ...dataChangePassword,
+          [element.nameInputInObject]: {
+            ...dataChangePassword[element.nameInputInObject],
+            error: true,
+            message: element.textSuggestion,
+          },
+        };
+      });
+      setUser(dataChangePassword);
+      return;
+    }
+
+    let passwordDecrypt = decrypt(user["password"].value, passwordRedux);
+
+    if (passwordDecrypt) {
+      dispatch(
+        getChangePassword({
+          email: `${user["email"].value}`,
+        })
+      );
+    }
+  };
+const ChangePasswordCompare = async () => {
+
+  if (newPassword['password'].value !== newPassword['passwordConfirm'].value) {
+    setNewPassword({
+      ...newPassword,
+      passwordConfirm: {
+        ...newPassword['passwordConfirm'],
+        error: true,
+        message: "Las contraseñas no coinciden",
+      },
+    });
+    return;
+  }
+
+  const validate =  validateInputs([
+    {
+      value: newPassword["password"].value,
+      type: "password",
+      nameInputInObject: "password",
+    },
+    {
+      value: newPassword["passwordConfirm"].value,
+      type: "password",
+      nameInputInObject: "passwordConfirm",
+    },
+  ]).filter((item) => item.validation === false);
+
+  if (validate.length > 0) {
+    let dataChangePassword = newPassword;
+    validate.forEach((element) => {
+      dataChangePassword = {
+        ...dataChangePassword,
+        [element.nameInputInObject]: {
+          ...dataChangePassword[element.nameInputInObject],
+          error: true,
+          message: element.textSuggestion,
+        },
+      };
+    });
+    setNewPassword(dataChangePassword);
+    return;
+  }
+
+  let passwordEncrypt = await encrypt(newPassword["password"].value);
+
+  dispatch(
+    updateUser({
+      contend: passwordEncrypt,
+      type: "password",
+      id:userId
+    })
+  );
+
+}
   return !ChangePasswordRedux ? (
     <div>
       <input
@@ -81,7 +167,7 @@ const ChangePassword = () => {
         }}
       />
 
-      <button onClick={() => ChangePasswordfunction()}>Change password</button>
+      <button onClick={() => ChangePasswordfunction()}>Validate input</button>
     </div>
   ) : (
     <div>
@@ -91,7 +177,7 @@ const ChangePassword = () => {
         type="password"
         value={newPassword["password"].value}
         onChange={(e) => {
-          setUser({
+          setNewPassword({
             ...newPassword,
             password: {
               ...newPassword["password"],
@@ -101,15 +187,16 @@ const ChangePassword = () => {
           });
         }}
       />
+      {newPassword["password"].error && <p>{newPassword["password"].message}</p>}
       <input
         className="Login__input"
         placeholder="Password Confirm"
         type="password"
         value={newPassword["passwordConfirm"].value}
         onChange={(e) => {
-          setUser({
+          setNewPassword({
             ...newPassword,
-            password: {
+            passwordConfirm: {
               ...newPassword["passwordConfirm"],
               value: e.target.value,
               error: false,
@@ -117,6 +204,11 @@ const ChangePassword = () => {
           });
         }}
       />
+      {newPassword["passwordConfirm"].error && (
+        <p>{newPassword["passwordConfirm"].message}</p>
+      )}
+
+      <button onClick={() => ChangePasswordCompare()}>Change password</button>
     </div>
   );
 };

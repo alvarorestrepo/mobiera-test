@@ -13,7 +13,6 @@ const inicialState = {
 export default function userReducer(state = inicialState, action) {
   switch (action.type) {
     case GET_USER:
-        console.log("entro por aca", action.payload);
       return {
             ...state,
             name: action.payload.name,

@@ -5,7 +5,6 @@ import { updateUser } from "../redux/actions";
 const Profile = () => {
   const dispatch = useDispatch();
   const userRedux = useSelector(state => state.user);
-  console.log("userRedux",userRedux);
   const [user, setUser] = useState({
     name: {
       value: userRedux.name? userRedux.name : "",
@@ -30,13 +29,11 @@ const Profile = () => {
   });
 
   const update = (e, value, boolean ) => {
-    console.log("e", e.target.value);
-    console.log("value", value);
     dispatch(
       updateUser({
         type: value,
         contend: e.target.value,
-        id: 1
+        id: userRedux.id,
       })
     );
   };
