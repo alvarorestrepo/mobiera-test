@@ -7,7 +7,7 @@ import styles from "./auth.module.css";
 
 const SingUp = () => {
   const history = useHistory();
-  const apiSetUser = "http://localhost:8080/users";
+  const apiSetUser = "https://json-server-alvaro.herokuapp.com/users";
 
   const [user, setUser] = useState({
     name: {
@@ -75,7 +75,7 @@ const SingUp = () => {
     let passwordEncrypt = await encrypt(user["password"].value);
 
     let validateEmail = await axios
-      .get(`http://localhost:8080/users?email=${user["email"].value}`)
+      .get(`https://json-server-alvaro.herokuapp.com/users?email=${user["email"].value}`)
       .then((res) => {
         if (res.data.length > 0) {
           return false;
