@@ -13,7 +13,6 @@ export const GET_PRODUCTS = "GET_PRODUCTS";
 
 const apiLoginUrl = (email) => {
   return `https://json-server-alvaro.herokuapp.com/users?email=${email}`;
-  
 };
 const apiProducts = "https://fakestoreapi.com/products/";
 
