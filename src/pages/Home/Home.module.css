@@ -24,3 +24,8 @@
   margin: 0 0 0 150px;
   outline: none;
 }
+@media screen and (max-width: 768px){
+  .search{
+    margin: 0 0 0 0;
+}
+}
