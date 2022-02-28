@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import userReducer from "./userReducers.js";
 import loggedReducer from "./loggedReducers.js";
 import feedbackReducer from "./feedbackReducers.js";
+import productsReducer from "./productsReducers.js";
 import thunk from "redux-thunk";
 let middleware = [thunk]
 
@@ -33,6 +34,7 @@ const store = createStore(
             user: userReducer,
             logged: loggedReducer,
             feedback: feedbackReducer,
+            products: productsReducer,
         }
     ),
     persistedStore,

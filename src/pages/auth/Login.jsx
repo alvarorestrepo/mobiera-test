@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import validateInputs from "../../functions/validateInputs";
-import Feedback from "../../components/Feedback/Feedback";
 import { useDispatch, useSelector } from "react-redux";
 import { decrypt } from "../../functions/encrypt";
-import { getUser, getFeedback } from "../../redux/actions";
+import { getUser, getFeedback, loggedUser } from "../../redux/actions";
 import styles from "./auth.module.css";
 
 const Login = () => {
@@ -25,6 +24,28 @@ const Login = () => {
   });
 
   let history = useHistory();
+
+  useEffect(() => {
+    const loginPassword = async () => {
+      let passwordDecrypt
+      if(passwordRedux){
+        console.log("paso");
+        passwordDecrypt = await decrypt(
+          user["password"].value,
+          passwordRedux
+        );
+      }
+      if (passwordDecrypt === true) {
+        dispatch(loggedUser());
+        dispatch(
+          getFeedback({ textFeedback: "bienvenido", openFeedback: true })
+        );
+        history.push("/home");
+      }
+    };
+
+    loginPassword();
+  }, [passwordRedux]);
 
   const setUserPetitions = async () => {
     const validate = validateInputs([
@@ -62,13 +83,21 @@ const Login = () => {
       })
     );
 
-    let passwordDecrypt = await decrypt(user["password"].value, passwordRedux);
+    console.log("passworessss", user["password"].value, passwordRedux);
 
+    let passwordDecrypt = await decrypt(user["password"].value, passwordRedux);
+    console.log("passwordDecrypt", passwordDecrypt);
     if (passwordDecrypt === true) {
-      history.push("/home");
+      dispatch(loggedUser());
       dispatch(getFeedback({ textFeedback: "bienvenido", openFeedback: true }));
+      history.push("/home");
     } else {
-      dispatch(getFeedback({ textFeedback: "User or password incorrect", openFeedback: true }));
+      dispatch(
+        getFeedback({
+          textFeedback: "User or password incorrect",
+          openFeedback: true,
+        })
+      );
     }
   };
 
@@ -131,7 +160,6 @@ const Login = () => {
         >
           <p className={styles.text__buton_auth}>Sing Up</p>
         </button>
-        <Feedback />
 
         <h2>&nbsp;</h2>
       </div>

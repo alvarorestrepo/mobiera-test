@@ -1,7 +1,7 @@
 .Menu__item {
   list-style: none;
   padding: 15px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 100;
   letter-spacing: 1px;
   color: #6D6E70;
@@ -9,7 +9,7 @@
 .Item__selected {
   list-style: none;
   padding: 15px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 1px;
   color: #4b3c50;

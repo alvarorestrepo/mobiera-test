@@ -16,7 +16,7 @@ const Navbar = (props) => {
   const dataMenu = [
     { id: '1', name: 'Profile', route: '/profile' },
     { id: '2', name: 'Change Password', route: '/change-password' },
-    { id: '4', name: 'Event', route: '/event' },
+    { id: '4', name: 'Products', route: '/home' },
   ];
   const [open, setOpen] = useState(props.open);
   const [isItemClosed, setisItemClosed] = useState(true);

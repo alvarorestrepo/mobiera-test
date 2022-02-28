@@ -1,0 +1,112 @@
+*{
+  box-sizing: border-box;
+}
+footer {
+  width: 100%;
+  text-align: start;
+}
+.Footer__container_all {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background-color: black;
+}
+.Footer__container{
+  width: 90%;
+  text-align: start;
+  margin:20px;
+}
+.Footer__container_text {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 50px;
+}
+.Footer__container_text a:first-child{
+  width: 100%;
+  color: #ffffff;
+  font-size: 1.3rem;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.Footer__container_text a{
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.Footer__container_text a:hover{
+  color: #FFD067;
+}
+.Footer__container_end {
+  width: 90%;
+  text-align: center;
+  margin:auto;
+}
+.Footer__container_end_text {
+  margin:auto;
+  width: 100%;
+  padding:0 20px;
+  color: #fff ;
+}
+.Footer__section_small {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  font-size: 80%;
+  background-color: rgba(61, 61, 61, 1);
+  color: #fff;
+  padding: 15px 10px;
+}
+.Footer__section_small a {
+  color: #fff;
+  text-decoration: none;
+}
+@media screen and (min-width: 400px) {
+  .Footer__container_all {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .Footer__container {
+    width: 40%;
+    text-align: start;
+    margin:20px;
+  }
+  .Footer__container_end {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .Footer__container_end_text {
+    width: 40%;
+    text-align: start;
+    margin:20px;
+  }
+}
+@media screen and (min-width: 700px) {
+  .Footer__container {
+    width: 20%;
+    margin:10px;
+  }
+  .Footer__container_end_text {
+    width: 20%;
+    margin:10px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .Footer__container_end {
+    width: 60%;
+    text-align: start;
+    margin:auto;
+  }
+  .Footer__container {
+    width: 20%;
+    margin:20px 0;
+  }
+  .Footer__container_end_text {
+    width: 20%;
+    margin:0;
+  }
+}

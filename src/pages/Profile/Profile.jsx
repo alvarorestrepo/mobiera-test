@@ -32,7 +32,6 @@ const Profile = () => {
 
   const update = (e, value, boolean) => {
 
-    console.log("user",user);
     dispatch(
       updateUser({
         type: value,
