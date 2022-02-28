@@ -198,9 +198,9 @@ const SingUp = () => {
         <button className={styles.boton__auth} onClick={() => register()}>
           <p className={styles.text__buton_auth}>Sing Up</p>
         </button>
-        <button className={styles.boton__auth} onClick={() => history.push('/')}>
-          <p className={styles.text__buton_auth}>Sing In</p>
-        </button>
+        <div className={styles.link__auth} onClick={() => history.push('/')}>
+          <p className={styles.text__next}>Go to sing in</p>
+        </div>
       </div>
     </div>
   );

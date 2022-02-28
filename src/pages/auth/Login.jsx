@@ -153,12 +153,12 @@ const Login = () => {
         >
           <p className={styles.text__buton_auth}>Sing In</p>
         </button>
-        <button
-          className={styles.boton__auth}
+        <div
+          className={styles.link__auth}
           onClick={() => history.push("singup")}
         >
-          <p className={styles.text__buton_auth}>Sing Up</p>
-        </button>
+          <p className={styles.text__next}> Go to sing Up</p>
+        </div>
 
         <h2>&nbsp;</h2>
       </div>

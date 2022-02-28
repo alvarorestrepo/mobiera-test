@@ -122,4 +122,20 @@
   margin-bottom: unset;
   padding: 8px;
   align-items: center;
+  cursor: pointer;
+}
+.link__auth{
+  width: 100%;
+  display: flex;
+  text-align: start;
+  font-size: 1.2rem;
+  line-height: 13px;
+  padding: 8px;
+  align-items: flex-start;
+  justify-self: flex-start;
+}
+.text__next{
+  text-align: start;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
