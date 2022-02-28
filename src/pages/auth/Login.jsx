@@ -9,6 +9,7 @@ import styles from "./auth.module.css";
 const Login = () => {
   const dispatch = useDispatch();
   const passwordRedux = useSelector((state) => state.user.password);
+  const nameRedux = useSelector((state) => state.user.name);
 
   const [user, setUser] = useState({
     email: {
@@ -38,7 +39,7 @@ const Login = () => {
       if (passwordDecrypt === true) {
         dispatch(loggedUser());
         dispatch(
-          getFeedback({ textFeedback: "bienvenido", openFeedback: true })
+          getFeedback({ textFeedback: `Bienvenido ${nameRedux}` , openFeedback: true })
         );
         history.push("/home");
       }
@@ -83,13 +84,11 @@ const Login = () => {
       })
     );
 
-    console.log("passworessss", user["password"].value, passwordRedux);
-
     let passwordDecrypt = await decrypt(user["password"].value, passwordRedux);
     console.log("passwordDecrypt", passwordDecrypt);
     if (passwordDecrypt === true) {
       dispatch(loggedUser());
-      dispatch(getFeedback({ textFeedback: "bienvenido", openFeedback: true }));
+      dispatch(getFeedback({ textFeedback:`Bienvenido ${nameRedux}`, openFeedback: true }));
       history.push("/home");
     } else {
       dispatch(

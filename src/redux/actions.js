@@ -12,7 +12,7 @@ export const GET_PRODUCTS = "GET_PRODUCTS";
 //Endpoints
 
 const apiLoginUrl = (email) => {
-  return `https://json-server-alvaro.herokuapp.com/users?email=${email}`;
+  return `http://localhost:8080/users?email=${email}`;
   
 };
 const apiProducts = "https://fakestoreapi.com/products/";
@@ -113,8 +113,9 @@ export const changePasswordFalse = () => {
 
 export const updateUser = ({ type, contend, id }) => {
   return (dispatch) => {
+    
     axios
-      .patch(`https://json-server-alvaro.herokuapp.com/users/${id}`, { [type]: contend })
+      .patch(`http://localhost:8080/users/${id}`, { [type]: contend })
       .then((res) => {
         dispatch({
           type: GET_USER,
